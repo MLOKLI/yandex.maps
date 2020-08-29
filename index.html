@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Быстрый старт. Размещение интерактивной карты на странице</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=5406a80b-bdec-4db7-9821-2f6091498f40&lang=ru_RU" type="text/javascript">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="controller">
+		<div class="groups">
+			<div class="group">
+				<label>Map Y:</label>
+				<input type="number" name="map.y" value="53.90" step="0.001">
+			</div>
+			<div class="group">
+				<label>Map X:</label>
+				<input type="number" name="map.x" value="27.56" step="0.001">
+			</div>
+		</div>
+		<input type="submit" value="Enter" id="enter">
+	</div>
+    <div id="map" style="width: 800px; height: 800px"></div>
+	
+	<script>
+	var latitude = null;
+	var longitude = null;
+	var positionStatus = false;
+	var coordinate = [53.90, 27.56];
+		ymaps.ready(init);
+			function init(){
+				var myMap = new ymaps.Map("map", {
+					center: coordinate,
+					zoom: 12,
+					controls: []
+				});
+				$('ymaps[class="ymaps-2-1-77-copyrights-pane"]').css({ "display": "none"});
+				myMap.options.set('yandexMapDisablePoiInteractivity', true);
+				myMap.controls.remove('geolocationControl');
+				myMap.controls.remove('searchControl');
+				myMap.controls.remove('trafficControl');
+				myMap.controls.remove('typeSelector');
+				myMap.controls.remove('fullscreenControl');
+				myMap.controls.remove('rulerControl');
+				myMap.behaviors.disable(['scrollZoom']);
+				
+				function onResizeMap(x, y) {
+					myMap.setCenter([x, y]);
+				}
+				
+				function draw() {
+					let mapX = $("input[name='map.x']").val();
+					let mapY = $("input[name='map.y']").val();
+					console.log(mapY+' | '+mapX);
+					onResizeMap(mapY, mapX);
+				}
+				
+				$("#enter").click(function(){
+					draw();
+				});
+				
+				$("input[name='map.x']").change(function() {
+					draw();
+				});
+				
+				$("input[name='map.y']").change(function() {
+					draw();
+				});
+				
+				navigator.geolocation.getCurrentPosition(function(position) {
+				  console.log(position.coords.latitude, position.coords.longitude);
+				});
+			}
+	</script>
+</body>
+
+</html>
