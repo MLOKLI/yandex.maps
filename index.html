@@ -69,9 +69,15 @@
 					draw();
 				});
 				
-				navigator.geolocation.getCurrentPosition(function(position) {
-				  console.log(position.coords.latitude, position.coords.longitude);
-				});
+				navigator.geolocation.watchPosition(geolocationSuccess, geolocationFailure, {enableHighAccuracy: true});
+				
+				function geolocationSuccess(position) {
+					console.log("Последний раз вас засекали здесь: "+position.coords.latitude+" | "+position.coords.longitude);
+				}
+
+				function geolocationFailure(positionError) {
+					console.log(positionError);
+				}
 			}
 	</script>
 </body>
