@@ -6,10 +6,16 @@
     <script src="https://api-maps.yandex.ru/2.1/?apikey=5406a80b-bdec-4db7-9821-2f6091498f40&lang=ru_RU" type="text/javascript">
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="controller">
+	<!--<div class="controller">
 		<div class="groups">
 			<div class="group">
 				<label>Map Y:</label>
@@ -21,8 +27,8 @@
 			</div>
 		</div>
 		<input type="submit" value="Enter" id="enter">
-	</div>
-    <div id="map" style="width: 800px; height: 800px"></div>
+	</div>-->
+    <div id="map" style="width: 100vw; height: 100vh"></div>
 	
 	<script>
 	var latitude = null;
@@ -48,6 +54,12 @@
 				
 				function onResizeMap(x, y) {
 					myMap.setCenter([x, y]);
+					myMap.geoObjects.add(new ymaps.Placemark([x, y], {
+						balloonContent: '<strong>ТЫ</strong>'
+					}, {
+						preset: 'islands#circleIcon',
+						iconColor: '#3caa3c'
+					}));
 				}
 				
 				function draw() {
@@ -69,7 +81,9 @@
 					draw();
 				});
 				
-				navigator.geolocation.watchPosition(geolocationSuccess, geolocationFailure, {enableHighAccuracy: true});
+				if (navigator.geolocation) {
+					navigator.geolocation.watchPosition(geolocationSuccess, geolocationFailure, {enableHighAccuracy: true});
+				}
 				
 				function geolocationSuccess(position) {
 					console.log("Последний раз вас засекали здесь: "+position.coords.latitude+" | "+position.coords.longitude);
