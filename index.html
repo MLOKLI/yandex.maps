@@ -73,6 +73,7 @@
 				
 				function geolocationSuccess(position) {
 					console.log("Последний раз вас засекали здесь: "+position.coords.latitude+" | "+position.coords.longitude);
+					onResizeMap(position.coords.latitude, position.coords.longitude);
 				}
 
 				function geolocationFailure(positionError) {
