@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Быстрый старт. Размещение интерактивной карты на странице</title>
+    <title>Местоположение на карте яндекс</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://api-maps.yandex.ru/2.1/?apikey=5406a80b-bdec-4db7-9821-2f6091498f40&lang=ru_RU" type="text/javascript">
     </script>
@@ -11,11 +11,15 @@
 			margin: 0px;
 			padding: 0px;
 		}
+		
+		.controller {
+			display: none;
+		}
 	</style>
 </head>
 
 <body>
-	<!--<div class="controller">
+	<div class="controller">
 		<div class="groups">
 			<div class="group">
 				<label>Map Y:</label>
@@ -27,7 +31,7 @@
 			</div>
 		</div>
 		<input type="submit" value="Enter" id="enter">
-	</div>-->
+	</div>
     <div id="map" style="width: 100vw; height: 100vh"></div>
 	
 	<script>
@@ -44,22 +48,19 @@
 				});
 				$('ymaps[class="ymaps-2-1-77-copyrights-pane"]').css({ "display": "none"});
 				myMap.options.set('yandexMapDisablePoiInteractivity', true);
-				myMap.controls.remove('geolocationControl');
-				myMap.controls.remove('searchControl');
-				myMap.controls.remove('trafficControl');
-				myMap.controls.remove('typeSelector');
-				myMap.controls.remove('fullscreenControl');
-				myMap.controls.remove('rulerControl');
-				myMap.behaviors.disable(['scrollZoom']);
 				
 				function onResizeMap(x, y) {
 					myMap.setCenter([x, y]);
-					myMap.geoObjects.add(new ymaps.Placemark([x, y], {
+					/*
+					let test = myMap.geoObjects.add(new ymaps.Placemark([x, y], {
 						balloonContent: '<strong>ТЫ</strong>'
 					}, {
-						preset: 'islands#circleIcon',
+						preset: 'islands#redIcon',
 						iconColor: '#3caa3c'
 					}));
+					console.log(test);
+					test.options.set('preset','islands#circleIcon');
+					*/
 				}
 				
 				function draw() {
@@ -83,11 +84,19 @@
 				
 				if (navigator.geolocation) {
 					navigator.geolocation.watchPosition(geolocationSuccess, geolocationFailure, {enableHighAccuracy: true});
+					myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+						balloonContent: '<strong>ТЫ</strong>'
+					}, {
+						preset: 'islands#circleIcon',
+						iconColor: '#3caa3c'
+					});
+					myMap.geoObjects.add(myPlacemark);
 				}
 				
 				function geolocationSuccess(position) {
 					console.log("Последний раз вас засекали здесь: "+position.coords.latitude+" | "+position.coords.longitude);
 					onResizeMap(position.coords.latitude, position.coords.longitude);
+					myPlacemark.geometry.setCoordinates([position.coords.latitude, position.coords.longitude]);
 				}
 
 				function geolocationFailure(positionError) {
