@@ -20,10 +20,8 @@
 <body>
     <div id="rotation"></div>
     <script>
-        alert("start");
         if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-            alert("func start");
         }
 
         function deviceOrientationHandler (eventData) {
