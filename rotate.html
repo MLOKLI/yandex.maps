@@ -22,13 +22,11 @@
     <script>
         if ('DeviceOrintationEvent' in window) {
             window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-            console.log("start");
-        } else {
-            console.error("No DeviceOrintationEvent");
+            alert("start");
         }
 
         function deviceOrientationHandler (eventData) {
-            consle.log(eventData);
+            alert(eventData);
             var dir = eventData.alpha;
             document.getElementById("rotation").style.transform = 'rotate('+dir+'deg)';
         }
