@@ -20,15 +20,16 @@
 <body>
     <div id="rotation"></div>
     <script>
-        if ('DeviceOrintationEvent' in window) {
+        alert("start");
+        if ('DeviceOrientationEvent' in window) {
             window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-            alert("start");
+            alert("func start");
         }
 
         function deviceOrientationHandler (eventData) {
             alert(eventData);
             var dir = eventData.alpha;
-            document.getElementById("rotation").style.transform = 'rotate('+dir+'deg)';
+            document.getElementById("rotation").style.transform = 'rotate('+Math.round(dir)+'deg)';
         }
     </script>
 </body>
