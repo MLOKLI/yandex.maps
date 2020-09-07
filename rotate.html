@@ -27,7 +27,6 @@
         }
 
         function deviceOrientationHandler (eventData) {
-            alert(eventData);
             var dir = eventData.alpha;
             document.getElementById("rotation").style.transform = 'rotate('+Math.round(dir)+'deg)';
         }
