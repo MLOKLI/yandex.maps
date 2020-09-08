@@ -1,1 +1,1 @@
-{"response":{"code":200,"data":{"1":{"id":"1","type":"circle","coordinates":{"x":32.53,"y":42.23}},"2":{"id":"2","type":"circle","coordinates":{"x":15.53,"y":40.23}},"3":{"id":"3","type":"circle","coordinates":{"x":62.53,"y":32.23}}}}}
+{"response":{"code":200,"data":[{"id":"1","type":"circle","coordinates":{"x":32.53,"y":42.23}},{"id":"2","type":"circle","coordinates":{"x":15.53,"y":40.23}},{"id":"3","type":"circle","coordinates":{"x":62.53,"y":32.23}}]}}
