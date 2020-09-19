@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=5406a80b-bdec-4db7-9821-2f6091498f40&lang=ru_RU" type="text/javascript"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        ::-webkit-scrollbar{
+            width:0px;
+        }
+        ::-webkit-scrollbar-thumb{
+            border:none;
+        }
+        ::-webkit-scrollbar-track{
+            border:none;
+        }
+
+        #block1 {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        #block2 {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: #e7e7e7;
+            z-index: 2;
+            bottom: -90%;
+        }
+    </style>
+</head>
+<body>
+    <div id="block1" style="width:100vw;height:100vh;"></div>
+    <div id="block2"> Текст, тест. Блок 2</div>
+    <script>
+        // Дождёмся загрузки API и готовности DOM.
+        ymaps.ready(init);
+
+        function init () {
+            var Map = new ymaps.Map('block1', {
+                center: [55.76, 37.64],
+                zoom: 7,
+                controls: [],
+            }, {
+                searchControlProvider: 'yandex#search'
+            });
+        }
+    </script>
+</body>
+</html>
