@@ -1,0 +1,25 @@
+{
+	title: "Заголовок 39",
+	description: "Описание 39",
+	address: "Адрес 39",
+	time: "14:32",
+	people: {
+		count: 4,
+		max: 14,
+	},
+	buttons: [
+		{
+			type: "success",
+			text: "Зеленый",
+		},
+		{
+			type: "warning",
+			text: "Желтый",
+		},
+		{
+			type: "danger",
+			text: "Красный",
+		},
+	],
+	chat: true,
+}
